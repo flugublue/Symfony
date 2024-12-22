@@ -1,0 +1,68 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Log in!{% endblock %}
+
+{% block body %}
+
+    {% block menu %}
+        {% include 'header.html.twig' %}
+    {% endblock %}
+
+    <div id="layoutSidenav">
+        {% block side_nav %}
+            {% include 'sidenav.html.twig' %}
+        {% endblock %}
+        <div id="layoutSidenav_content">
+            <main>
+                <div class="container-fluid px-4">
+                    <div class="card mb-4">
+                        <div class="card-header">
+                            <h1 class="text-center">Connecter</h1>
+                        </div>
+                        <div class="card-body">
+                            <form method="post">
+                                {% if error %}
+                                    <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+                                {% endif %}
+
+                                {% if app.user %}
+                                    <div class="mb-3">
+                                        Vous êtes connecter en tant que {{ app.user.userIdentifier }}, <a href="{{ path('app_logout') }}">Deconnecter</a>
+                                    </div>
+                                {% endif %}
+
+                                <h1 class="h3 mb-3 font-weight-normal">Connectez vous</h1>
+                                <label for="username">Email</label>
+                                <input type="email" value="{{ last_username }}" name="_username" id="username" class="form-control" autocomplete="email" required autofocus>
+                                <label for="password">Password</label>
+                                <input type="password" name="_password" id="password" class="form-control" autocomplete="current-password" required>
+
+                                <input type="hidden" name="_csrf_token"
+                                    value="{{ csrf_token('authenticate') }}"
+                                >
+
+                                <div class="checkbox mb-3">
+                                    <input type="checkbox" name="_remember_me" id="_remember_me">
+                                    <label for="_remember_me">Se souvenir de moi</label>
+                                </div>
+
+                                <button class="btn btn-lg btn-primary" type="submit">
+                                    Se connecter
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                    <div style="height: 100vh"></div>
+                    <div class="card mb-4">
+                        <div class="card-body text-center">
+                            When scrolling, the navigation stays at the top of the page. This is the end of the static navigation demo.
+                        </div>
+                    </div>
+                </div>
+            </main>
+            {% block footer %}
+                {% include 'footer.html.twig' %}
+            {% endblock %}
+        </div>
+    </div>
+{% endblock %}

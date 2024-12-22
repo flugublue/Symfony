@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+{% block include 'Symfony\Component\HttpFoundation\header.html.twig' %}
+
+{% block title %}Lire l'article{% endblock %}
+
+{% block body %}
+    {% block menu %}
+        {% include 'header.html.twig' %}
+    {% endblock %}
+
+
+    <div id="layoutSidenav">
+        {% block side_nav %}
+            {% include 'sidenav.html.twig' %}
+        {% endblock %}
+
+        <div id="layoutSidenav_content">
+            <main>
+                <div class="container mt-5">
+                    <h1>{{ article.titre }}</h1>
+                    {% if article.image %}
+                        <img src="{{ asset(article.image) }}" alt="Image de l'article" class="img-fluid mb-4">
+                    {% endif %}
+                    <p>{{ article.texte }}</p>
+                    <a href="{{ path('app_article_fetch') }}" class="btn btn-secondary">Retour aux articles</a>
+                </div>
+            </main>
+            <div style="height: 100vh"></div>
+        </div>
+
+        {% block footer %}
+            {% include 'footer.html.twig' %}
+        {% endblock %}
+        
+    </div>
+    
+
+{% endblock %}

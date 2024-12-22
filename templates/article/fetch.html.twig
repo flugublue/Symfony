@@ -1,0 +1,78 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello ArticleFetch!{% endblock %}
+
+{% block body %}
+    {% block menu %}
+        {% include 'header.html.twig' %}
+    {% endblock %}
+
+    <div id="layoutSidenav">
+        {% block side_nav %}
+            {% include 'sidenav.html.twig' %}
+        {% endblock %}
+        
+        <div id="layoutSidenav_content">
+            <main>
+                <div class="container-fluid px-4">
+                    
+                    {% for label, messages in app.flashes %}
+                        {% for message in messages %}
+                            <div class="alert alert-{{ label }} alert-dismissible fade show mt-3" role="alert">
+                                {{ message }}
+                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                            </div>
+                        {% endfor %}
+                    {% endfor %}
+
+                    <div class="card mb-4">
+                        <div class="card-body">
+                            <h1>Liste des articles</h1>
+                            
+                            <div class="row">
+                                {% for article in articles %}
+                                    <div class="col-md-4 mb-4">
+                                        <div class="card" style="width: 18rem;">
+                                            {% if article.image %}
+                                                <img class="card-img-top" src="{{ asset(article.image) }}" >
+                                            {% endif %}
+                                            <a href="{{ path('app_article_read', {id: article.id}) }}" class="btn btn-info">Lire l'article</a>
+                                            
+                                            <div class="card-body">
+                                                <h5 class="card-title">{{ article.titre }}</h5>
+                                                <p class="card-text">{{ article.texte }}</p>
+                                                
+                                                {% if article.category %}
+                                                    <span class="badge bg-primary">{{ article.category.nom }}</span>
+                                                {% endif %}
+                                                
+                                                {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+                                                    <a href="{{ path('app_article_edit', {id: article.id}) }}" class="btn btn-primary">Modifier</a>
+
+                                                    <form action="{{ path('app_article_delete', {id: article.id}) }}" method="post" 
+                                                        onsubmit="return confirm('Voulez-vous vraiment supprimer cet article ?');" 
+                                                        style="display: inline;">
+                                                        <input type="hidden" name="_method" value="DELETE">
+                                                        <button type="submit" class="btn btn-danger">Supprimer</button>
+                                                    </form>
+                                                {% endif %}
+                                            
+                                            </div>
+                                        </div>
+                                    </div>
+                                {% endfor %}
+                            </div>
+                            
+                        </div>
+                    </div>
+                    
+                </div>
+            </main>
+            
+            {% block footer %}
+                {% include 'footer.html.twig' %}
+            {% endblock %}
+        </div>
+    </div>
+
+{% endblock %}

@@ -1,0 +1,46 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Creation Category{% endblock %}
+
+{% block body %}
+    {% block menu %}
+        {% include 'header.html.twig' %}
+    {% endblock %}
+
+        <div id="layoutSidenav">
+            {% block side_nav %}
+                {% include 'sidenav.html.twig' %}
+            {% endblock %}
+            
+            <div id="layoutSidenav_content">
+                <main>
+                    <div class="container-fluid px-4">
+                        <h1> Creation Category </h1>
+
+                        <div class="card mb-4">
+                            <div class="card-body">
+                            {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+                            
+                                {{ form_start(form) }}
+                                    {{ form_row(form.nom) }}
+                                    <button type="submit" class="btn btn-primary">Créer</button>
+                                {{ form_end(form) }}
+                            
+                            {% else %}
+                                <div>
+                                    CETTE PAGE EST RESERVE AUX GENS CONNECTER
+                                </div>
+                            {% endif %}
+                            </div>
+                        </div>
+                        <div style="height: 100vh"></div>
+                    </div>
+                </main>
+
+                {% block footer %}
+                    {% include 'footer.html.twig' %}
+                {% endblock %}
+            </div>
+        </div>
+
+{% endblock %}

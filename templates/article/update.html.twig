@@ -1,0 +1,41 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello ArticleFetch!{% endblock %}
+
+{% block body %}
+    {% block menu %}
+        {% include 'header.html.twig' %}
+    {% endblock %}
+
+        <div id="layoutSidenav">
+            {% block side_nav %}
+                {% include 'sidenav.html.twig' %}
+            {% endblock %}
+            <div id="layoutSidenav_content">
+                <main>
+                    <div class="container-fluid px-4">
+                        <div class="card mb-4">
+                        <h1>Modification article</h1>
+                        
+                            <div class="card-body">
+
+                                    <div class="row">
+                                        {{ form_start(form) }}
+                                            {{ form_widget(form) }}
+                                            <button type="submit" class="btn btn-success">Enregistrer les modifications</button>
+                                        {{ form_end(form) }}
+                                    </div>
+                                
+                            </div>
+                        </div>
+                        <div style="height: 100vh"></div>
+                        <div class="card mb-4"><div class="card-body">When scrolling, the navigation stays at the top of the page. This is the end of the static navigation demo.</div></div>
+                    </div>
+                </main>
+                {% block footer %}
+                    {% include 'footer.html.twig' %}
+                {% endblock %}
+            </div>
+        </div>
+
+{% endblock %}

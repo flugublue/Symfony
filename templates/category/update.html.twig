@@ -1,0 +1,42 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Modifier une catégorie{% endblock %}
+
+{% block body %}
+    {% block menu %}
+        {% include 'header.html.twig' %}
+    {% endblock %}
+
+    <div id="layoutSidenav">
+        {% block side_nav %}
+            {% include 'sidenav.html.twig' %}
+        {% endblock %}
+        <div id="layoutSidenav_content">
+            <main>
+                <div class="container-fluid px-4">
+                    <div class="card mb-4">
+                        <h1>Modification de la catégorie</h1>
+
+                        <div class="card-body">
+                            <div class="row">
+                                {{ form_start(form) }}
+                                    {{ form_widget(form) }}
+                                    <button type="submit" class="btn btn-success">Enregistrer les modifications</button>
+                                {{ form_end(form) }}
+                            </div>
+                        </div>
+                    </div>
+                    <div style="height: 100vh"></div>
+                    <div class="card mb-4">
+                        <div class="card-body">
+                            Fin de la démo de la navigation statique lors du défilement.
+                        </div>
+                    </div>
+                </div>
+            </main>
+            {% block footer %}
+                {% include 'footer.html.twig' %}
+            {% endblock %}
+        </div>
+    </div>
+{% endblock %}

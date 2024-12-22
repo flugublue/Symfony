@@ -1,0 +1,78 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste des categories{% endblock %}
+
+{% block body %}
+    {% block menu %}
+        {% include 'header.html.twig' %}
+    {% endblock %}
+
+    <div id="layoutSidenav">
+        {% block side_nav %}
+            {% include 'sidenav.html.twig' %}
+        {% endblock %}
+        
+        <div id="layoutSidenav_content">
+            <main>
+                <div class="container-fluid px-4">
+                    
+                    {% for label, messages in app.flashes %}
+                        {% for message in messages %}
+                            <div class="alert alert-{{ label }} alert-dismissible fade show mt-3" role="alert">
+                                {{ message }}
+                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                            </div>
+                        {% endfor %}
+                    {% endfor %}
+
+                    <div class="card mb-4">
+                        <div class="card-body">
+                            <h1>Liste des catégories</h1>
+
+                            <div class="table-responsive">
+                                <table class="table table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th>Id</th>
+                                            <th>Nom</th>
+                                            <th>Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {% for category in categories %}
+                                            <tr>
+                                                <td>{{ category.id }}</td>
+                                                <td>{{ category.nom }}</td>
+                                                {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+                                                    <td>
+                                                        <a href="{{ path('app_category_edit', {'id': category.id}) }}" class="btn btn-warning">Modifier</a>
+                            
+                                                    <form action="{{ path('app_category_delete', {'id': category.id}) }}" method="post" style="display:inline;">
+                                                        <button type="submit" class="btn btn-danger" onclick="return confirm('Êtes-vous sûr de vouloir supprimer cette catégorie ?')">Supprimer</button>
+                                                    </form>
+                                                    </td> 
+                                                {% endif %}
+                                            </tr>
+                                        {% else %}
+                                            <tr>
+                                                <td colspan="3" class="text-center">Aucune catégorie disponible.</td>
+                                            </tr>
+                                        {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                            
+                            <a href="{{ path('app_category_create') }}" class="btn btn-primary">Créer une nouvelle catégorie</a>
+                        </div>
+                    </div>
+                    
+                </div>
+            </main>
+            
+            {% block footer %}
+                {% include 'footer.html.twig' %}
+            {% endblock %}
+        </div>
+    </div>
+
+{% endblock %}
